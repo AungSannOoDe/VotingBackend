@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Ablum;
 use App\Models\tempo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,5 +22,8 @@ class Elector extends Model
     public function tempo()
     {
         return $this->hasOne(tempo::class);
+    }
+    public function Ablum(){
+        return $this->hasMany(Ablum::class);
     }
 }

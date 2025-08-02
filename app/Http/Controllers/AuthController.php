@@ -68,7 +68,11 @@ class AuthController extends Controller
         return response()->json(['token' => $token, 'user' => $user]);
     }
     public function logout(Request $request){
-        $request->user()->currentAccessToken()->delete();
+         $voter = Auth::guard('user')->user();
+        if (!$voter) {
+            return response()->json(['message' => 'No authenticated voter'], 401);
+        }
+        $voter->tokens()->delete();
         return response()->json(['message' => 'Logged out successfully']);
     }
 }
