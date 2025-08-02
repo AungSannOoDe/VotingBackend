@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\tempo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Elector extends Model
 {
@@ -17,4 +18,8 @@ class Elector extends Model
         "Years",
         "won_status"
     ];
+    public function tempo()
+    {
+        return $this->hasOne(tempo::class);
+    }
 }

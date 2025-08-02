@@ -40,11 +40,12 @@ class AuthController extends Controller
             ]);
     }
     public function voterRegister(TokenRegister $request){
-     $voter=Voter::create([
+     $voting=Voter::create([
         "voter_name"=>$request->voter_name,
         "voter_email"=>$request->voter_email,
         "voter_password"=>Hash::make($request->voter_password)
      ]);
+     $voter = Voter::where('id', $voting->id)->first();
      $token = $voter->createToken('auth_token')->plainTextToken;
      return response()->json([ "token"=>$token, 'voters' => $voter]);
     }

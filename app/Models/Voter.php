@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\tempo;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Voter extends Authenticatable
 {
@@ -32,5 +33,9 @@ class Voter extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function tempo()
+    {
+        return $this->hasOne(tempo::class);
     }
 }

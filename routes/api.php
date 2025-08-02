@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\TempoController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\ElectorController;
@@ -21,7 +22,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/token-login', 'tokenLogin');
     Route::post('/register', 'register');
-    Route::post('/voter-register','voterRegister');
+    Route::post('/voter-reg','voterRegister');
     Route::post('/voter-login','voterLogin');
 });
 Route::middleware('auth:sanctum')->group(function () {
@@ -41,6 +42,6 @@ Route::middleware('voter.auth')->group(function () {
     Route::controller(VoterProfileController::class)->prefix("voter")->group(function () {
         Route::post('/voter-logout', 'voterLogout');
     });
-    Route::apiResource('voters', VoterController::class)->except(['store']);
+    Route::apiResource('temp',TempoController::class);
 });
 Route::apiResource('events', EventController::class);
