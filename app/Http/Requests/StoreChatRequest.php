@@ -2,19 +2,16 @@
 
 namespace App\Http\Requests;
 
-use App\Models\tempo;
-use App\Models\Elector;
-use App\Rules\UniqueGender;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoretempoRequest extends FormRequest
+class StoreChatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,8 +22,7 @@ class StoretempoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "elector_id"=>['required',new UniqueGender($this->voter_id,'electors','tempos')],
-            "voter_id"=>"required"
+            //
         ];
     }
 }

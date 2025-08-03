@@ -45,6 +45,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('voters');
+         Schema::dropIfExists('voters');
+        Schema::dropIfExists('voter_password_reset_tokens');
+        Schema::dropIfExists('voters_sessions');
     }
 };

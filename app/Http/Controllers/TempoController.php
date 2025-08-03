@@ -40,7 +40,7 @@ class TempoController extends Controller
     public function show($id)
     {
         $validated = Validator::make(['voter_id' => $id], [
-            'voter_id' => 'required|integer|exists:tempos,voter_id',
+            'voter_id' => 'required|integer',
         ]);
         if ($validated->fails()) {
             return response()->json([
