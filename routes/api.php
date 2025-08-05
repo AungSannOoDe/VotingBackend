@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SSEController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TempoController;
@@ -36,6 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::patch('/change-name', 'changeName');
             Route::post('/change-profile-image', 'changeProfileImage');
         });
+        Route::get('/dashboard-stream', [SSEController::class, 'stream']);
         Route::prefix('user/chat')->group(function () {
             Route::get('conversations', [ChatController::class, 'userConversations']);
             Route::get('conversations/{conversation}', [ChatController::class, 'userConversation']);
@@ -71,3 +73,4 @@ Route::middleware('voter.auth')->group(function () {
 });
 });
 Route::apiResource('events', EventController::class);
+

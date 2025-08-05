@@ -68,17 +68,17 @@ class TempoController extends Controller
      */
     public function destroy($id)
     {
-         $validated = Validator::make(['elector_id' => $id], [
-            'elector_id' => 'required|integer|exists:tempos,elector_id',
+         $validated = Validator::make(['id' => $id], [
+            'id' => 'required|integer',
         ]);
           if ($validated->fails()) {
             return response()->json([
-                'message' => 'Invalid Voter ID'
+                'message' => 'Invalid temp ID'
             ], 404);
         }
-        $temp=tempo::where('elector_id',$id)->delete();
+        $temp=tempo::where('id',$id)->delete();
         return [
-            "message"=>"temp Deleted successfully"
+            "message"=>"temp  Deleted successfully"
         ];
     }
 }
