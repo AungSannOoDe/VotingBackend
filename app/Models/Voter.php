@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\tempo;
+use App\Models\Votes;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -37,5 +38,9 @@ class Voter extends Authenticatable
     public function tempo()
     {
         return $this->hasOne(tempo::class);
+    }
+    public function votes()
+    {
+        return $this->hasOne(Votes::class);
     }
 }

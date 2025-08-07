@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class SSEController extends Controller
 {
+
     public function stream(){
         return response()->stream(function(){
             while(true){

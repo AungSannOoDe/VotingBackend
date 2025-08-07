@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\TempoController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\VoterController;
+use App\Http\Controllers\VotesController;
 use App\Http\Controllers\ElectorController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\ElectorGetController;
@@ -50,9 +51,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware('voter.auth')->group(function () {
+     Route::apiResource('/votes',VotesController::class);
     Route::controller(VoterProfileController::class)->prefix("voter")->group(function () {
         Route::post('/voter-logout', 'voterLogout');
     });
+
      Route::controller(StudentProfileController::class)->prefix("voter-profile")->group(function () {
         Route::post('/logout', 'logout');
         Route::get('/profile', 'profile');
@@ -65,12 +68,14 @@ Route::middleware('voter.auth')->group(function () {
         Route::get('conversations/{conversation}', [ChatController::class, 'voterConversation']);
         Route::post('conversations/{conversation}/messages', [ChatController::class, 'voterSendMessage']);
     });
-    Route::controller(ElectorGetController::class)->group(function () {
-        Route::get('get-elector','getElector');
-        Route::get('get-details/{id}','getDetails');
-    });
+
     Route::apiResource('temp',TempoController::class);
 });
 });
 Route::apiResource('events', EventController::class);
+Route::controller(ElectorGetController::class)->group(function () {
+    Route::get('get-elector','getElector');
+    Route::get('get-history','getElectorHistory');
+    Route::get('get-details/{id}','getDetails');
+});
 

@@ -11,7 +11,7 @@ class StoreVotesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreVotesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'voter_id' => 'required|integer|exists:voters,id',
+            'elector_id' => 'required|integer|exists:electors,id',
+            'vote_code' => 'nullable|string|max:255',
+            'archived_at' => 'nullable|integer', // Assuming archived_at is an integer timestamp
         ];
     }
 }

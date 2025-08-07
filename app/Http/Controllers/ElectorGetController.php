@@ -15,6 +15,13 @@ class ElectorGetController extends Controller
            "data"=>$query
         ]);
     }
+    public function getElectorHistory(Request $request) {
+        $query = Elector::whereIn('won_status', [1,2])->get();
+        return response()->json([
+            "message" => "Elector history retrieved successfully",
+            "data" => $query
+        ]);
+    }
     public function getDetails($id){
         $elector = Elector::find($id);
 
