@@ -22,6 +22,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('roll_name')->nullable();
             $table->string("profile_image")->nullable();
+             $table->integer('vote_male')->default(0);
+             $table->integer('vote_female')->default(0);
             $table->timestamps();
         });
         Schema::create('voter_password_reset_tokens', function (Blueprint $table) {

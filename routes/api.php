@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SSEController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AblumController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TempoController;
 use App\Http\Controllers\TokenController;
@@ -31,6 +32,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['user.auth'])->group(function () {
+        Route::apiResource('ablums', AblumController::class);
          Route::controller(profileController::class)->prefix("user-profile")->group(function () {
             Route::post('/logout', 'logout');
             Route::get('/profile', 'profile');
@@ -51,7 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware('voter.auth')->group(function () {
-     Route::apiResource('/votes',VotesController::class);
+
     Route::controller(VoterProfileController::class)->prefix("voter")->group(function () {
         Route::post('/voter-logout', 'voterLogout');
     });
@@ -62,16 +64,18 @@ Route::middleware('voter.auth')->group(function () {
         Route::post('/change-password', 'changePassword');
         Route::patch('/change-name', 'changeName');
         Route::post('/change-profile-image', 'changeProfileImage');
+        Route::patch('/change-male','changeMale');
     });
     Route::prefix('voter/chat')->group(function () {
-        Route::get('conversations', [ChatController::class, 'voterConversations']);
-        Route::get('conversations/{conversation}', [ChatController::class, 'voterConversation']);
+    Route::get('conversations', [ChatController::class, 'voterConversations']);
+    Route::get('conversations/{conversation}', [ChatController::class, 'voterConversation']);
         Route::post('conversations/{conversation}/messages', [ChatController::class, 'voterSendMessage']);
     });
 
     Route::apiResource('temp',TempoController::class);
 });
 });
+ Route::apiResource('/votes',VotesController::class);
 Route::apiResource('events', EventController::class);
 Route::controller(ElectorGetController::class)->group(function () {
     Route::get('get-elector','getElector');

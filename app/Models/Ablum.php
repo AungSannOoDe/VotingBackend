@@ -13,7 +13,8 @@ class Ablum extends Model
     protected $fillable=[
      "image_1",
      "image_2",
-     "image_3"
+     "image_3",
+     "elector_id"
     ];
     public function Elector(){
         return $this->belongsTo(Elector::class);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Token;
 use App\Models\Voter;
+use App\Models\Votes;
 use Illuminate\Http\Request;
 
 class SSEController extends Controller
@@ -16,6 +17,14 @@ class SSEController extends Controller
                 $votercount=Voter::count();
                 $usercount=User::count();
                 $tokencount=Token::count();
+                $maleCount = Votes::whereHas('elector', function($query) {
+                    $query->where('gender', 'male');
+                })
+                ->count();
+                 $feale = Votes::whereHas('elector', function($query) {
+                    $query->where('gender', 'female');
+                })
+                ->count();
                 $Completed=Token::where('archived_at', '1')->count();
                 $data=[
                     'voter_count' => $votercount,

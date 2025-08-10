@@ -21,7 +21,9 @@ class Voter extends Authenticatable
         'profile_image',
         'Years',
         'Major',
-        'roll_name'
+        'roll_name',
+        "vote_male",
+        "vote_female"
     ];
 
     protected $hidden = [

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\ChangeMaleRequest;
+use App\Http\Requests\ChangeNameRequest;
 
 class StudentProfileController extends Controller
 {
@@ -12,12 +15,19 @@ class StudentProfileController extends Controller
             "message"=>"Student Profile retrived successfully",
             "data"=>$request->user(),
         ]);
-
+    }
+    public function changeMale(ChangeMaleRequest $request){
+        $user = $request->user();
+        $user->update(['vote_male' => $request->vote_male]);
+        return response()->json([
+            'message' => 'Male Vote Change successfully',
+            'user' => $user,
+        ]);        
     }
      public function changeName(ChangeNameRequest $request)
     {
         $user = $request->user();
-        $user->update(['name' => $request->name]);
+        $user->update(['voter_name' => $request->voter_name]);
 
         return response()->json([
             'message' => 'Name changed successfully',

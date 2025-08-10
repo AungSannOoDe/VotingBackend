@@ -11,7 +11,7 @@ class StoreAblumRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreAblumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "image_1" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+             "image_2" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+             "image_3"=> "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+             "elector_id" => "required|exists:electors,id"
         ];
     }
 }

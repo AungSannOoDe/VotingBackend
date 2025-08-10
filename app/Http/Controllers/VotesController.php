@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVotesRequest;
 use App\Http\Requests\UpdateVotesRequest;
 use App\Models\Votes;
+use Illuminate\Http\Request;
 
 class VotesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $votes = Votes::with(['voter', 'elector'])->get();
+        $votes = Votes::get();
         return response()->json([
             'message' => 'Votes retrieved successfully',
             'data' => $votes
@@ -25,12 +26,17 @@ class VotesController extends Controller
      */
     public function store(StoreVotesRequest $request)
     {
+         
         $vote = Votes::create([
             'voter_id' => $request->voter_id,
             'elector_id' => $request->elector_id,
             'vote_code' => $request->vote_code,
             'archived_at' => $request->archived_at,
         ]);
+        $elector = $vote->elector;
+        $updateField = ($elector->gender === 'male') ? 'vote_male' : 'vote_female';
+        $vote->voter->update([$updateField => 1]);
+        $vote->load('voter');
         return response()->json([
             'message' => 'Vote created successfully',
             'data' => $vote
@@ -41,7 +47,7 @@ class VotesController extends Controller
      */
     public function show($id)
     {
-        $vote = Votes::where('voter_id',$id)->get();
+        $vote = Votes::where('voter_id',$id)->with(['voter', 'elector'])->get();
         return response()->json([
             'message' => 'Vote retrieved successfully',
             'data' => $vote

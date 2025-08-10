@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeNameRequest extends FormRequest
+class ChangeMaleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class ChangeNameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "voter_name"=>'required|min:2'
+            "vote_male"=>"required"
         ];
     }
 }
