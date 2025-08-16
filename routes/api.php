@@ -47,6 +47,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('conversations/{conversation}', [ChatController::class, 'userConversation']);
             Route::post('conversations/{conversation}/messages', [ChatController::class, 'userSendMessage']);
         });
+
         Route::apiResource('electors',ElectorController::class);
         Route::apiResource('voters', VoterController::class);
         Route::apiResource('tokens', TokenController::class);
@@ -76,6 +77,11 @@ Route::middleware('voter.auth')->group(function () {
     Route::apiResource('temp',TempoController::class);
 });
 });
+Route::prefix('timer')->group(function () {
+    Route::get('/', [TimeController::class, 'getTime']);
+    Route::post('/set', [TimeController::class, 'setTime']);
+    Route::post('/reset', [TimeController::class, 'resetTime']);
+});
  Route::apiResource('/votes',VotesController::class);
 Route::apiResource('events', EventController::class);
 Route::controller(ElectorGetController::class)->group(function () {
@@ -83,5 +89,4 @@ Route::controller(ElectorGetController::class)->group(function () {
     Route::get('get-history','getElectorHistory');
     Route::get('get-details/{id}','getDetails');
 });
- Route::get('/timer', [TimeController::class, 'getRemainingTime']);
 

@@ -24,7 +24,6 @@ class UniqueGender implements ValidationRule
         $gender = DB::table($this->electorsTable)
             ->where('id', $value)
             ->value('gender');
-
         if (!$gender) {
             $fail('Gender not found for the selected elector.');
             return;
