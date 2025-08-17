@@ -11,7 +11,7 @@ class UpdateAblumRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateAblumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "elector_id" => "required|exists:electors,id",
+            "image_1" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "image_2" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "image_3" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "image_4" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
         ];
     }
 }

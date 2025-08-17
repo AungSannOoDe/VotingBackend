@@ -33,6 +33,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['user.auth'])->group(function () {
         Route::apiResource('ablums', AblumController::class);
+        Route::post('/ablums/update', [AblumController::class, 'updateImage']);
          Route::controller(profileController::class)->prefix("user-profile")->group(function () {
             Route::post('/logout', 'logout');
             Route::get('/profile', 'profile');
@@ -40,7 +41,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::patch('/change-name', 'changeName');
             Route::post('/change-profile-image', 'changeProfileImage');
         });
-
         Route::get('/dashboard-stream', [SSEController::class, 'stream']);
         Route::prefix('user/chat')->group(function () {
             Route::get('conversations', [ChatController::class, 'userConversations']);

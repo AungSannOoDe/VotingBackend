@@ -22,10 +22,11 @@ class StoreAblumRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "image_1" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "elector_id" => "required|exists:electors,id",
+             "image_1" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
              "image_2" => "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
              "image_3"=> "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
-             "elector_id" => "required|exists:electors,id"
+             "image_4"=> "required|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
         ];
     }
 }

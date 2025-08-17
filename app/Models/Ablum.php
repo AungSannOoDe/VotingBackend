@@ -14,6 +14,7 @@ class Ablum extends Model
      "image_1",
      "image_2",
      "image_3",
+     "image_4",
      "elector_id"
     ];
     public function Elector(){
