@@ -146,17 +146,6 @@ class AblumController extends Controller
             'data' => $album->fresh() // Return fresh data from database
         ]);
     }
-
-    protected function deleteAlbumImages($album)
-    {
-        $imageFields = ['image_1', 'image_2', 'image_3', 'image_4'];
-
-        foreach ($imageFields as $field) {
-            if ($album->$field && Storage::disk('public')->exists($album->$field)) {
-                Storage::disk('public')->delete($album->$field);
-            }
-        }
-    }
 }
 
 
