@@ -137,8 +137,15 @@ class TimeController extends Controller
          if ($topMale) {
             Elector::where('id', $topMale->elector_id)->update(['won_status' => 1]);
         }
+        if($secondMale){
+            Elector::where('id', $secondMale->elector_id)->update(['won_status' => 2]);
+        }
+
         if ($topFemale) {
             Elector::where('id', $topFemale->elector_id)->update(['won_status' => 1]);
+        }
+        if($secondFemale){
+            Elector::where('id', $secondFemale->elector_id)->update(['won_status' => 2]);
         }
         return response()->json([
             'success' => true,

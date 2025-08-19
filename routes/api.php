@@ -85,6 +85,7 @@ Route::prefix('timer')->group(function () {
  Route::apiResource('/votes',VotesController::class);
 Route::apiResource('events', EventController::class);
 Route::controller(ElectorGetController::class)->group(function () {
+    Route::get('get-success','getWining');
     Route::get('get-elector','getElector');
     Route::get('get-history','getElectorHistory');
     Route::get('get-details/{id}','getDetails');

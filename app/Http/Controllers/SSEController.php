@@ -62,8 +62,6 @@ class SSEController extends Controller
                         ];
                     })->sortByDesc('votes')->values()->toArray(),
                     'total_votes' => $votes->sum('vote_count'),
-                    "max_votes"=>$votes->max('vote_count') ?? 0,
-                    "top_male"=>$topMale ?? null,
                     'voter_count' => $votercount,
                     'user_count' => $usercount,
                     'token_count' => $tokencount,

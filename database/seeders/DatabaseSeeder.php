@@ -26,7 +26,5 @@ class DatabaseSeeder extends Seeder
         ]);
          Token::factory()->count(100)->create();
          Event::factory()->count(100)->create();
-         Voter::factory()->count(100)->create();
-         Elector::factory()->count(10)->create();
     }
 }

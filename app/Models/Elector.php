@@ -18,6 +18,7 @@ class Elector extends Model
         "address",
         "gender",
         "Years",
+        "description",
         "won_status"
     ];
     public function tempo()

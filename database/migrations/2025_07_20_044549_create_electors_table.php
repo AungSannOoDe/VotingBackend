@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('phone');
             $table->text('address');
             $table->string('Years');
+            $table->longtext("description");
             $table->string('gender');
             $table->integer('won_status');
             $table->timestamps();

@@ -27,6 +27,7 @@ class StoreElectorRequest extends FormRequest
             "address"=>"required",
             "gender"=>"required",
             "Years"=>'required',
+            "description"=>"required",
             "won_status"=>'required'
         ];
     }

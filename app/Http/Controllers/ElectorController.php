@@ -58,6 +58,7 @@ class ElectorController extends Controller
         $elector->gender=$request->gender;
         $elector->won_status=$request->won_status;
         $elector->address=$request->address;
+        $elector->description=$request->description;
         $elector->save();
         return response()->json([
             'message' => 'elector created successfully',
