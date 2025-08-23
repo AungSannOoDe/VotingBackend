@@ -108,21 +108,20 @@ class EventController extends Controller
     public function destroy($id)
     {
          $validated = Validator::make(['id' => $id], [
-            'id' => 'required|integer|exists:voters,id',
+            'id' => 'required|integer|exists:events,id',
         ]);
-
         if ($validated->fails()) {
             return response()->json([
                 'message' => 'Invalid product ID'
             ], 404);
         }
 
-        $voter = Voter::find($id);
+        $voter = Event::find($id);
 
         $voter->delete();
 
         return response()->json([
-            'message' => 'Product deleted successfully'
+            'message' => 'Event deleted successfully'
         ]);
     }
 }

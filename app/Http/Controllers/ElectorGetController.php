@@ -14,11 +14,12 @@ class ElectorGetController extends Controller
         $validSortColumns = ['electors.id', 'elector_name', 'phone', 'gender', 'Years', 'won_status'];
         $sortBy = in_array($request->input('sort_by'), $validSortColumns, true) ? $request->input('sort_by') : 'electors.id';
         $sortDirection = in_array($request->input('sort_direction'), ['asc', 'desc'], true) ? $request->input('sort_direction') : 'desc';
-        $limit = $request->input('limit', 5);
+        $limit = $request->input('limit', 100);
         $limit = is_numeric($limit) && $limit > 0 && $limit <= 100 ? (int)$limit : 5;
 
         $query = DB::table('electors')
             ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id')
+            ->where('Years','=','2025')
             ->select(
                 'electors.id',
                 'electors.elector_name',
@@ -58,15 +59,70 @@ class ElectorGetController extends Controller
         return response()->json($results);
     }
     public function getElectorHistory(Request $request) {
-        $query = Elector::where('Years',"!=","2025" )->get();
-        return response()->json([
-            "message" => "Elector history retrieved successfully",
-            "data" => $query
+        $year = $request->query('year');
+           $query = DB::table('electors')
+        ->select(
+            'electors.id',
+            'electors.elector_name',
+            'electors.phone',
+            'electors.gender',
+            'electors.Years',
+             'electors.description',
+            'electors.won_status',
+            'ablums.id as album_id',
+            'ablums.image_1',
+            'ablums.image_2',
+            'ablums.image_3',
+            'ablums.image_4',
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_1) as image_1_url"),
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_2) as image_2_url"),
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_3) as image_3_url"),
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_4) as image_4_url")
+        )
+        ->where('electors.Years', '!=', '2025')
+         ->whereIn('electors.won_status', [1, 2])
+         ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id');
+         if ($year && $year !== "All") {
+            $query->where('electors.Years', '=', $year);
+        }
+        $result = $query->get();
+         return  response()->json([
+            "message"=>"History  retrieved successfully ",
+            "data"=>$result
+        ]);
+    }
+    public function getDetailsHistory($id){
+          $query = DB::table('electors')
+        ->select(
+            'electors.id',
+            'electors.elector_name',
+            'electors.phone',
+            'electors.gender',
+            'electors.Years',
+             'electors.description',
+            'electors.won_status',
+            'ablums.id as album_id',
+            'ablums.image_1',
+            'ablums.image_2',
+            'ablums.image_3',
+            'ablums.image_4',
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_1) as image_1_url"),
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_2) as image_2_url"),
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_3) as image_3_url"),
+            DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_4) as image_4_url")
+        )
+        ->whereIn('electors.won_status', [1, 2])
+        ->where('electors.id',$id)
+         ->where('electors.Years', '<', '2025')
+         ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id')
+        ->first();
+         return  response()->json([
+            "message"=>"History  retrieved successfully ",
+            "data"=>$query
         ]);
     }
     public function getWining(Request $request){
         $query = DB::table('electors')
-            ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id')
             ->select(
                 'electors.id',
                 'electors.elector_name',
@@ -85,7 +141,8 @@ class ElectorGetController extends Controller
                 DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_4) as image_4_url")
             )
             ->whereIn('electors.won_status', [1, 2])
-            ->where('electors.Years', '=', '2025') 
+             ->where('electors.Years', '=', '2025')
+             ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id')
             ->get();
 
         return  response()->json([
@@ -94,8 +151,30 @@ class ElectorGetController extends Controller
         ]);
     }
     public function getDetails($id){
-        $elector = Elector::find($id);
 
+         $elector = DB::table('electors')
+            ->select(
+                'electors.id',
+                'electors.elector_name',
+                'electors.phone',
+                'electors.gender',
+                'electors.Years',
+                'electors.description',
+                'electors.won_status',
+                'ablums.id as album_id',
+                'ablums.image_1',
+                'ablums.image_2',
+                'ablums.image_3',
+                'ablums.image_4',
+                DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_1) as image_1_url"),
+                DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_2) as image_2_url"),
+                DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_3) as image_3_url"),
+                DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_4) as image_4_url")
+            )
+             ->where('electors.Years', '=', '2025')
+            ->where('electors.id', $id)
+             ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id')
+            ->first();
         if (!$elector) {
             return response()->json(['message' => 'Elector not found'], 404);
         }

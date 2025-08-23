@@ -101,7 +101,6 @@ class ElectorController extends Controller
             "Years",
             "won_status"
         ]));
-
         return response()->json([
             'message' => 'elector updated successfully',
             'data' => new ElectorResource($elector)
