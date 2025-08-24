@@ -22,7 +22,7 @@ class StoreTokenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'sometimes|in:API,Mobile,Web,System',
+            'type' => 'sometimes|in:AOY,POT,OPYT,YPY,CPC,UgtOY',
             'algorithm' => 'sometimes|in:sha256,sha512,ripemd160,whirlpool',
             "archived_at"=>'required'
         ];

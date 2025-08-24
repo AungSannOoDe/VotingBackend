@@ -13,7 +13,6 @@ class StoreVotesRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,8 +23,8 @@ class StoreVotesRequest extends FormRequest
         return [
             'voter_id' => 'required|integer|exists:voters,id',
             'elector_id' => 'required|integer|exists:electors,id',
-            'vote_code' => 'nullable|string|max:255',
-            'archived_at' => 'nullable|integer', // Assuming archived_at is an integer timestamp
+            'vote_code' => 'required|string|max:255',
+            'archived_at' => 'required|integer',
         ];
     }
 }

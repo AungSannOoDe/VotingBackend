@@ -133,7 +133,7 @@ class TokenController extends Controller
     }
     private function getRandomType(): string
     {
-        $types = ['API', 'Mobile', 'Web', 'System'];
+        $types = ['AOY', 'POT', 'OPYT', 'YPY','CPC','UgtOY'];
         return $types[array_rand($types)];
     }
     private function getRandomAlgorithm(): string
@@ -143,10 +143,12 @@ class TokenController extends Controller
     private function generateTokenNumber(string $type): string
     {
         $prefixMap = [
-            'API' => 'API',
-            'Mobile' => 'MOB',
-            'Web' => 'WEB',
-            'System' => 'SYS'
+            'AOY'=>'AOY',
+            'POT'=>'POT',
+            'OPYT'=>'OPYT',
+            'YPY'=>'YPY',
+            'CPC'=>'CPC',
+            'UgtOY'=>'UgtOY'
         ];
 
         $prefix = $prefixMap[$type] ?? 'TKN';
