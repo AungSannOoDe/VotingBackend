@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreGalleryRequest;
 use App\Http\Requests\UpdateGalleryRequest;
@@ -14,10 +15,15 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = Gallery::all()->map(function ($gallery) {
-            $gallery->image_url = asset('storage/' . $gallery->images);
-            return $gallery;
-        });
+        $galleries = DB::table('galleries')
+        ->select(
+            'galleries.id',
+            'galleries.title',
+            'galleries.description',
+            'galleries.created_at',
+            DB::raw("CONCAT('" . asset('storage') . "/', galleries.images) as images_url"),
+        )
+        ->get();
         return response()->json([
             "message" => "Galleries retrieved successfully",
             "data" => $galleries

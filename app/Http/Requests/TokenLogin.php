@@ -25,4 +25,11 @@ class TokenLogin extends FormRequest
             "token_name"=>'required|exists:tokens,token_name',
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'token_name.required' => 'တိုကင်အမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'token_name.exists' => 'ရွေးချယ်ထားသော တိုကင်အမည် မှားယွင်းနေပါသည်။'
+        ];
+    }
 }

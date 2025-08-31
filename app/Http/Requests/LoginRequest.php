@@ -26,4 +26,13 @@ class LoginRequest extends FormRequest
             'password' => 'required|string',
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'email.required' => 'အီးမေးလ် လိပ်စာ ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'email.email' => 'အီးမေးလ် လိပ်စာ ပုံစံ မှန်ကန်ရပါမည်။',
+            'password.required' => 'စကားဝှက် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'password.string' => 'စကားဝှက်သည် စာသား ပုံစံ ဖြစ်ရပါမည်။',
+        ];
+    }
 }

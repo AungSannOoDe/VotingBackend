@@ -25,4 +25,12 @@ class StoreTimeRequest extends FormRequest
             "time_name" => "required|integer|min:1",
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'time_name.required' => 'အချိန်အမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'time_name.integer' => 'အချိန်အမည်သည် ကိန်းပြည့် ဖြစ်ရပါမည်။',
+            'time_name.min' => 'အချိန်အမည်သည် ၁ ထက် ငယ်၍မရပါ။'
+        ];
+    }
 }

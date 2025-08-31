@@ -29,4 +29,11 @@ class StoretempoRequest extends FormRequest
             "voter_id"=>"required"
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'elector_id.required' => 'မဲဆန္ဒနယ် ID ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'voter_id.required' => 'မဲဆန္ဒနယ်ခွဲ ID ထည့်သွင်းရန် လိုအပ်ပါသည်။'
+        ];
+    }
 }

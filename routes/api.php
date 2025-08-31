@@ -84,6 +84,7 @@ Route::prefix('timer')->group(function () {
     Route::post('/set', [TimeController::class, 'setTime']);
     Route::post('/reset', [TimeController::class, 'resetTime']);
 });
+
  Route::apiResource('/gallery', GalleryController::class);
  Route::apiResource('/votes',VotesController::class);
 Route::apiResource('events', EventController::class);
@@ -91,6 +92,8 @@ Route::controller(GalleryController::class)->group(function(){
     Route::post('/update-gallery','updateGallery');
 });
 Route::controller(ElectorGetController::class)->group(function () {
+    Route::get('get-male','getMaleElector');
+    Route::get('get-female','getFemaleElector');
     Route::get('get-success','getWining');
     Route::get('get-elector','getElector');
     Route::get('get-history','getElectorHistory');

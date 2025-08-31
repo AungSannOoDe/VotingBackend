@@ -27,4 +27,21 @@ class TokenRegister extends FormRequest
             "voter_password"=>'required|string|min:6'
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'voter_name.required' => 'မဲပေးသူအမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'voter_name.string' => 'မဲပေးသူအမည်သည် စာသားပုံစံ ဖြစ်ရပါမည်။',
+            'voter_name.max' => 'မဲပေးသူအမည်သည် အက္ခရာ ၂၅ လုံးထက် မပိုရပါ။',
+        
+            'voter_email.required' => 'မဲပေးသူအီးမေးလ် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'voter_email.email' => 'မဲပေးသူအီးမေးလ် ပုံစံ မှန်ကန်ရပါမည်။',
+            'voter_email.max' => 'မဲပေးသူအီးမေးလ်သည် အက္ခရာ ၂၅၅ လုံးထက် မပိုရပါ။',
+            'voter_email.unique' => 'ဤအီးမေးလ်လိပ်စာဖြင့် မဲပေးသူရှိပြီးဖြစ်သည်။',
+        
+            'voter_password.required' => 'မဲပေးသူစကားဝှက် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'voter_password.string' => 'မဲပေးသူစကားဝှက်သည် စာသားပုံစံ ဖြစ်ရပါမည်။',
+            'voter_password.min' => 'မဲပေးသူစကားဝှက်တွင် အနည်းဆုံး ၆ လုံး ရှိရပါမည်။'
+        ];
+    }
 }

@@ -26,4 +26,11 @@ class voterLoginRequest extends FormRequest
             "voter_password"=>'required'
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'voter_email.required' => 'မဲပေးသူအီးမေးလ် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'voter_password.required' => 'မဲပေးသူစကားဝှက် ထည့်သွင်းရန် လိုအပ်ပါသည်။'
+        ];
+    }
 }

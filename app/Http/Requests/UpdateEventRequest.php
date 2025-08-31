@@ -27,4 +27,12 @@ class UpdateEventRequest extends FormRequest
             "event_start_time" => 'required'
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'event_name.required' => 'ပွဲအမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'event_participant.required' => 'ပွဲတက်ရောက်မည့်သူ ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'event_start_time.required' => 'ပွဲစတင်ချိန် ထည့်သွင်းရန် လိုအပ်ပါသည်။'
+        ];
+    }
 }

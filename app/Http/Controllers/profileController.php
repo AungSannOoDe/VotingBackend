@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\profileResource;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ChangeNameRequest;
+use App\Http\Requests\ChangeImageRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\ChangeProfileImageRequest;
 
@@ -24,7 +26,6 @@ class profileController extends Controller
     public function changePassword(ChangePasswordRequest $request)
     {
         $user = $request->user();
-
         if (!Hash::check($request->old_password, $user->password)) {
             return response()->json(['message' => 'Old password is incorrect'], 401);
         }
@@ -32,7 +33,20 @@ class profileController extends Controller
         $user->tokens()->delete();
         return response()->json(['message' => 'Password changed successfully']);
     }
-
+    public function  changeImage(ChangeImageRequest $request){
+         $user=$request->user();
+         if ($user->image && Storage::exists($user->image)) {
+            Storage::delete($user->image);
+         }
+         $path = $request->file('image')->store('users', 'public');
+         $user->image = $path;
+         $user->save();
+         return response()->json([
+            'message' => 'Image updated successfully',
+            'image_url' => Storage::url($path)
+        ],200);
+         
+    }
     /**
      * Change name.
      */
@@ -50,24 +64,15 @@ class profileController extends Controller
     /**
      * Change profile image.
      */
-    public function changeProfileImage(ChangeProfileImageRequest $request)
+    public function changeProfileImage(ChangeImageRequest $request)
     {
-
-        // return $request;
-
         $user = $request->user();
 
-        // If the user already has an image, delete the old one
-        if ($user->profile_image) {
-            Storage::delete($user->profile_image);
+        if ($user->image) {
+            Storage::delete($user->image);
         }
-
-        // Store the new image
-        $path = $request->file('profile_image')->store('public/profile_images');
-
-        // Update user profile image
-        $user->update(['profile_image' => $path]);
-
+        $imagePath = $request->file('image')->store('users', 'public');
+        $user->update(['image' => $imagePath]);
         return response()->json([
             'message' => 'Profile image changed successfully',
             'user' => new profileResource($user),

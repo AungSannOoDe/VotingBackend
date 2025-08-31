@@ -25,4 +25,10 @@ class UpdateTokenRequest extends FormRequest
                 "token_name"=>'required'
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'token_name.required' => 'တိုကင်အမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။'
+        ];
+    }
 }

@@ -25,4 +25,10 @@ class ChangeMaleRequest extends FormRequest
             "vote_male"=>"required"
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'vote_male.required' => 'အမျိုးသားမဲ ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+        ];
+    }
 }

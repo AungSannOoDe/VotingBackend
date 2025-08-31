@@ -76,7 +76,6 @@ class AblumController extends Controller
             ], 422);
         }
 
-        // Get albums with elector relationship
         $albums = Ablum::with('elector')
             ->where('elector_id', $id)
             ->get()
@@ -143,7 +142,7 @@ class AblumController extends Controller
         }
         return response()->json([
             'message' => 'Album images updated successfully',
-            'data' => $album->fresh() // Return fresh data from database
+            'data' => $album->fresh() 
         ]);
     }
 }

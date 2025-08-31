@@ -22,7 +22,14 @@ class ChangeNameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "voter_name"=>'required|min:2'
+            "name"=>'required|min:2'
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'နာမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'name.min' => 'နာမည်တွင် အနည်းဆုံး အက္ခရာ ၂ လုံး ရှိရပါမည်။',
         ];
     }
 }

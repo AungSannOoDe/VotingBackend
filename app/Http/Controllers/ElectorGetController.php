@@ -58,6 +58,60 @@ class ElectorGetController extends Controller
         ]);
         return response()->json($results);
     }
+
+public function getMaleElector(Request $request){
+    $query = DB::table('electors')
+    ->select(
+        'electors.id',
+        'electors.elector_name',
+        'electors.phone',
+        'electors.gender',
+        'electors.Years',
+         'electors.description',
+        'electors.won_status',
+        'ablums.id as album_id',
+        'ablums.image_1',
+        'ablums.image_2',
+        'ablums.image_3',
+        'ablums.image_4',
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_1) as image_1_url"),
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_2) as image_2_url"),
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_3) as image_3_url"),
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_4) as image_4_url")
+    ) ->where('electors.Years', '=', '2025')->where('electors.gender','male')
+    ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id')
+    ->get();
+    return response()->json([
+        "data"=>$query
+    ]);
+}
+public function getFemaleElector(Request $request){
+    $query = DB::table('electors')
+    ->select(
+        'electors.id',
+        'electors.elector_name',
+        'electors.phone',
+        'electors.gender',
+        'electors.Years',
+         'electors.description',
+        'electors.won_status',
+        'ablums.id as album_id',
+        'ablums.image_1',
+        'ablums.image_2',
+        'ablums.image_3',
+        'ablums.image_4',
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_1) as image_1_url"),
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_2) as image_2_url"),
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_3) as image_3_url"),
+        DB::raw("CONCAT('" . asset('storage') . "/', ablums.image_4) as image_4_url")
+    ) ->where('electors.Years', '=', '2025')->where('electors.gender','female')
+    ->leftJoin('ablums', 'electors.id', '=', 'ablums.elector_id')
+    ->get();
+    return response()->json([
+        "data"=>$query
+    ]);
+}
+
     public function getElectorHistory(Request $request) {
         $year = $request->query('year');
            $query = DB::table('electors')
