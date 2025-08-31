@@ -28,4 +28,22 @@ class UpdateGalleryRequest extends FormRequest
             'images' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'id.required' => 'ID ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+        
+            'title.required' => 'ခေါင်းစဉ် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'title.string' => 'ခေါင်းစဉ်သည် စာသားပုံစံ ဖြစ်ရပါမည်။',
+            'title.max' => 'ခေါင်းစဉ်သည် အက္ခရာ ၂၅၅ လုံးထက် မပိုရပါ။',
+        
+            'description.required' => 'ဖော်ပြချက် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'description.string' => 'ဖော်ပြချက်သည် စာသားပုံစံ ဖြစ်ရပါမည်။',
+            'description.max' => 'ဖော်ပြချက်သည် အက္ခရာ ၁၀၀၀ လုံးထက် မပိုရပါ။',
+        
+            'images.image' => 'ဓာတ်ပုံသည် ဓာတ်ပုံဖိုင်သာ ဖြစ်ရပါမည်။',
+            'images.mimes' => 'ဓာတ်ပုံ ၏ ဖိုင်အမျိုးအစားသည် jpeg, png, jpg, gif, svg သာ ဖြစ်ရပါမည်။',
+            'images.max' => 'ဓာတ်ပုံ ၏ အရွယ်အစားသည် ၂၀၄၈ KB (၂ MB) ထက် မကျော်ရပါ။'
+        ];
+    }
 }

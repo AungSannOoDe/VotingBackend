@@ -14,6 +14,15 @@ class ElectorController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+  public function getChampion(Request $request){
+      $champions=Elector::where('vote_same',1)->get();
+      return response()->json([
+        "success"=>true,
+        "data"=>$champions
+      ],200);
+  }
+
     public function index(Request $request)
     {
         $searchTerm = $request->input('q');
@@ -74,7 +83,6 @@ class ElectorController extends Controller
         $validated = Validator::make(['id' => $id], [
             'id' => 'required|integer|exists:electors,id',
         ]);
-
         if ($validated->fails()) {
             return response()->json([
                 'message' => 'Invalid event ID',

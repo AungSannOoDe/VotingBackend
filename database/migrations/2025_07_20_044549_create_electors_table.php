@@ -20,6 +20,7 @@ return new class extends Migration
             $table->longtext("description");
             $table->string('gender');
             $table->integer('won_status');
+            $table->integer('vote_same')->nullable();
             $table->timestamps();
         });
     }

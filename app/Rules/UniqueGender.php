@@ -25,7 +25,7 @@ class UniqueGender implements ValidationRule
             ->where('id', $value)
             ->value('gender');
         if (!$gender) {
-            $fail('Gender not found for the selected elector.');
+            $fail('ရွေချယ်ထားသော elector တွင် genderကိုမတွေ့ပါ');
             return;
         }
          $exists = DB::table($this->temposTable)
@@ -34,7 +34,7 @@ class UniqueGender implements ValidationRule
         ->where("{$this->temposTable}.voter_id", $this->voterId)
         ->exists();
         if ($exists) {
-            $fail("A student with gender '$gender' already exists.");
+            $fail("'$gender'ကိုတကြိမ်သာရွေချယ်ခွင့်ရှိသည်");
         }
     }
 }

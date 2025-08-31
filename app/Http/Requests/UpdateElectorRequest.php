@@ -30,4 +30,15 @@ class UpdateElectorRequest extends FormRequest
             "won_status"=>'required'
         ];
     }
+    public function messages(): array
+    {
+        return [
+            'elector_name.required' => 'မဲဆန္ဒနယ်နာမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'phone.required' => 'ဖုန်းနံပါတ် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'address.required' => 'လိပ်စာ ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'gender.required' => 'လိင် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'Years.required' => 'နှစ်ကာလ ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'won_status.required' => 'အနိုင်ရ status ထည့်သွင်းရန် လိုအပ်ပါသည်။'
+        ];
+    }
 }

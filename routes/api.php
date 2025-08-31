@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SSEController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TimeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AblumController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TempoController;
@@ -34,7 +35,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::middleware(['user.auth'])->group(function () {
         Route::apiResource('ablums', AblumController::class);
-
+        Route::apiResource('users',UserController::class);
         Route::post('/ablums/update', [AblumController::class, 'updateImage']);
          Route::controller(profileController::class)->prefix("user-profile")->group(function () {
             Route::post('/logout', 'logout');
@@ -49,7 +50,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::get('conversations/{conversation}', [ChatController::class, 'userConversation']);
             Route::post('conversations/{conversation}/messages', [ChatController::class, 'userSendMessage']);
         });
-
+     Route::get('/champions',[ElectorController::class,'getChampion']);
         Route::apiResource('electors',ElectorController::class);
         Route::apiResource('voters', VoterController::class);
         Route::apiResource('tokens', TokenController::class);
@@ -57,11 +58,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware('voter.auth')->group(function () {
-
     Route::controller(VoterProfileController::class)->prefix("voter")->group(function () {
         Route::post('/voter-logout', 'voterLogout');
     });
-
      Route::controller(StudentProfileController::class)->prefix("voter-profile")->group(function () {
         Route::post('/logout', 'logout');
         Route::get('/profile', 'profile');
