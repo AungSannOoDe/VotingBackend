@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('role');
             $table->string('image')->nullable();
             $table->string('password');
+            $table->integer('vote_male')->default(0);
+            $table->integer('vote_female')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

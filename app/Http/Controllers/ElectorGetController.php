@@ -8,7 +8,14 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\ElectorResource;
 
 class ElectorGetController extends Controller
+
 {
+    public function getName(Request $request){
+        $query=Elector::get();
+        return response()->json([
+            "data"=>$query
+        ]);
+    }
     public function getElector(Request $request){
         $searchTerm = $request->input('q');
         $validSortColumns = ['electors.id', 'elector_name', 'phone', 'gender', 'Years', 'won_status'];

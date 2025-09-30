@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreVotesRequest;
-use App\Http\Requests\UpdateVotesRequest;
 use App\Models\Votes;
 use Illuminate\Http\Request;
+use App\Http\Requests\boardStoreRequest;
+use App\Http\Requests\StoreVotesRequest;
+use App\Http\Requests\UpdateVotesRequest;
 
 class VotesController extends Controller
 {
@@ -37,6 +38,22 @@ class VotesController extends Controller
         $updateField = ($elector->gender === 'male') ? 'vote_male' : 'vote_female';
         $vote->voter->update([$updateField => 1]);
         $vote->load('voter');
+        return response()->json([
+            'message' => 'Vote created successfully',
+            'data' => $vote
+        ], 201);
+    }
+    public function boardStore(boardStoreRequest $request){
+        $vote = Votes::create([
+            'user_id' => $request->user_id,
+            'elector_id' => $request->elector_id,
+            'vote_code' => $request->vote_code,
+            'archived_at' => $request->archived_at,
+        ]);
+        $elector = $vote->elector;
+        $updateField = ($elector->gender === 'male') ? 'vote_male' : 'vote_female';
+        $vote->user->update([$updateField => 1]);
+        $vote->load('user');
         return response()->json([
             'message' => 'Vote created successfully',
             'data' => $vote

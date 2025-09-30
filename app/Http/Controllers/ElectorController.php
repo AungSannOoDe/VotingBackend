@@ -22,7 +22,28 @@ class ElectorController extends Controller
         "data"=>$champions
       ],200);
   }
-
+  public function updateChampion(Request $request)
+  {
+      $id = $request->input('id');
+      if (!$id) {
+          return response()->json([
+              'message' => 'No ID provided'
+          ], 400);
+      }
+      $elector = Elector::find($id);
+      if (!$elector) {
+          return response()->json([
+              'message' => "Elector with ID $id not found"
+          ], 404);
+      }
+      $elector->vote_same = 1;
+      $elector->save();
+      return response()->json([
+          'message' => 'Elector updated successfully',
+          'id' => $id
+      ],200);
+  }
+  
     public function index(Request $request)
     {
         $searchTerm = $request->input('q');

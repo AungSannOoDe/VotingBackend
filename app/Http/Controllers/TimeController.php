@@ -106,7 +106,6 @@ class TimeController extends Controller
             'seconds' => 'required|integer|min:0'
         ]);
         Cache::put('countdown_time', $request->seconds, now()->addDay());
-
         return response()->json([
             'remaining' => $request->seconds
         ]);

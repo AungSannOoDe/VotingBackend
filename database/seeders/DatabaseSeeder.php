@@ -21,10 +21,8 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'admin',
-            'email' => 'test@example.com',
+            'email' => 'admin123@gamil.com',
             "password"=>"asdffdsa"
         ]);
-         Token::factory()->count(100)->create();
-         Event::factory()->count(100)->create();
     }
 }

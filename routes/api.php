@@ -45,6 +45,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             Route::post('/change-profile-image', 'changeProfileImage');
         });
         Route::get('/dashboard-stream', [SSEController::class, 'stream']);
+        Route::post('/update-champion',[ElectorController::class,'updateChampion']);
         Route::prefix('user/chat')->group(function () {
             Route::get('conversations', [ChatController::class, 'userConversations']);
             Route::get('conversations/{conversation}', [ChatController::class, 'userConversation']);
@@ -94,6 +95,7 @@ Route::controller(ElectorGetController::class)->group(function () {
     Route::get('get-male','getMaleElector');
     Route::get('get-female','getFemaleElector');
     Route::get('get-success','getWining');
+    Route::get('get-electorName','getName');
     Route::get('get-elector','getElector');
     Route::get('get-history','getElectorHistory');
     Route::get('get-details-history/{id}','getDetailsHistory');

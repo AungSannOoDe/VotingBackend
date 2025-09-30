@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Voter;
 use App\Models\Elector;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ class Votes extends Model
         'voter_id',
         'elector_id',
         'archived_at',
+        'user_id',
         'vote_code',
     ];
     public function voter(){
@@ -22,5 +24,8 @@ class Votes extends Model
        }
        public function elector(){
         return $this->belongsTo(Elector::class);
+       }
+       public function user(){
+        return  $this->belongsTo(User::class);
        }
 }

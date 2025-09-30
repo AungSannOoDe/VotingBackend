@@ -58,15 +58,37 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'image'    => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
+            'role'     => 'required|string',
+        ]);
+        // Handle image upload (if provided)
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('users', 'public');
+        }
+        $validated['password'] = bcrypt($validated['password']);
+        $user = User::create($validated);
+        return response()->json([
+            'message' => 'User created successfully',
+            'user'    =>  $user
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        return response()->json($user);
     }
 
     /**
@@ -80,8 +102,21 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'message' => 'User deleted successfully',
+        ], 200);
     }
+
 }
